@@ -2,13 +2,11 @@ import { z } from "zod"
 
 const schema = z.object({
   NODE_ENV: z.enum(["production", "development", "test"] as const),
-  SESSION_SECRET: z.string(),
-  RESEND_API_KEY: z.string(),
-  MOCK_API: z.string(),
-  TURSO_DATABASE_URL: z.string(),
-  TURSO_AUTH_TOKEN: z.string(),
-  EMAIL_USER: z.string(),
-  EMAIL_APP_PASS: z.string(),
+  VITE_SESSION_SECRET: z.string(),
+  VITE_TURSO_DATABASE_URL: z.string(),
+  VITE_TURSO_AUTH_TOKEN: z.string(),
+  VITE_EMAIL_USER: z.string(),
+  VITE_APP_PASS: z.string(),
 })
 
 declare global {

@@ -20,7 +20,7 @@ export const toastSessionStorage = createCookieSessionStorage({
     sameSite: "lax",
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    secrets: process.env.SESSION_SECRET.split(","),
+    secrets: process.env.VITE_SESSION_SECRET.split(","),
   },
 })
 export async function redirectWithToast(

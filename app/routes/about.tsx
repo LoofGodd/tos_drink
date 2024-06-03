@@ -30,7 +30,7 @@ export default function about() {
                 alt="Cafe "
                 className="rounded-full"
                 height="300"
-                src="/photo/image.png"
+                src="/assets/background/slideshow.jpg"
                 style={{
                   aspectRatio: "300/300",
                   objectFit: "cover",

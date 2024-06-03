@@ -6,7 +6,7 @@ export const verificationStorage = createCookieSessionStorage({
     sameSite: "lax",
     httpOnly: true,
     path: "/",
-    secrets: process.env.SESSION_SECRET.split(","),
+    secrets: process.env.VITE_SESSION_SECRET.split(","),
     secure: process.env.NODE_ENV === "production",
   },
 })
