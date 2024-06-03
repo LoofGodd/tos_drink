@@ -19,6 +19,7 @@ import { requireAnonymous, sessionKey, signup } from "~/lib/auth.server"
 import { sendEmail } from "~/lib/email.server"
 import { verificationStorage } from "~/lib/verification.server"
 import { verificationEmailKey } from "./register"
+import VerifyHTML from "~/components/verifyTemplate"
 
 const registerSchema = z.object({
   username: z.string(),
@@ -44,14 +45,6 @@ export async function action({ request }: ActionFunctionArgs) {
   )
   const verificationEmail = verificationCookie.get(verificationEmailKey)
   if (typeof verificationEmail !== "string") throw redirect("/auth/onboarding")
-
-  const response = await sendEmail({
-    to: verificationEmail,
-    subject: "Hello world",
-    text: "Hellow",
-  })
-
-  console.log(response)
 
   const submission = await parseWithZod(formData, {
     schema: registerSchema.transform(async (data, ctx) => {

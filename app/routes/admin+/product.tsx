@@ -40,7 +40,8 @@ export async function loader() {
 export const deleteAction = "deleteActionId"
 export default function ProductAdminRoute() {
   const { products } = useLoaderData<typeof loader>()
-  const [searchParams, setSearchParams] = useSearchParams()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setSearchParams] = useSearchParams()
   const navigate = useNavigate()
   const addDeleteAction = (name: string, value: string) => {
     setSearchParams(
@@ -127,7 +128,7 @@ export default function ProductAdminRoute() {
                         </button>
                       </Link>
 
-                      <button
+                      {/* <button
                         className="w-full flex items-center space-x-2 hover:bg-gray-200 active:bg-gray-300 py-2 px-2 rounded-lg text-gray-500"
                         onClick={() =>
                           addDeleteAction(deleteAction, product.id)
@@ -135,7 +136,7 @@ export default function ProductAdminRoute() {
                       >
                         <Trash className="w-4 h-4 text-red-500" />
                         <span className="text-sm font-medium">Delete</span>
-                      </button>
+                      </button> */}
                     </PopoverContent>
                   </Popover>
                 </TableCell>

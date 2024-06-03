@@ -26,17 +26,31 @@ export const verificationResetPasswordKey = "resetPassword"
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData()
   await validateCSRF(formData, request.headers)
-  const submission = parseWithZod(formData, {
-    schema: forgetPasswordSchema,
+  const submission = await parseWithZod(formData, {
+    schema: forgetPasswordSchema.transform(async (data, ctx) => {
+      const user = await prisma.user.findFirst({
+        where: {
+          OR: [{ username: data.usernameEmail }, { email: data.usernameEmail }],
+        },
+      })
+
+      if (!user) {
+        ctx.addIssue({
+          path: ["usernameEmail"],
+          code: z.ZodIssueCode.custom,
+          message: "No user or email was found",
+        })
+        return z.NEVER
+      }
+      return { ...data, user }
+    }),
+    async: true,
   })
   if (submission.status !== "success") {
-    return json({ submission: { ...submission.reply() } })
+    return json({ submission: { ...submission.reply() }, status: "success" })
   }
 
-  const { usernameEmail } = submission.value
-  const user = await prisma.user.findFirstOrThrow({
-    where: { OR: [{ username: usernameEmail }, { email: usernameEmail }] },
-  })
+  const { user } = submission.value
   const type = "reset-password"
   const { redirectTo, verifyUrl, otp, verificationConfig } =
     await prepareVerification({
@@ -79,6 +93,7 @@ export default function ForgetPasswordRoute() {
       return parseWithZod(formData, { schema: forgetPasswordSchema })
     },
   })
+  console.log(form.allErrors)
   return (
     <div className="">
       <div className="text-center mb-16 flex flex-col gap-y-8">
@@ -94,7 +109,7 @@ export default function ForgetPasswordRoute() {
       >
         <AuthenticityTokenInput />
         <div>
-          <label htmlFor={fields.usernameEmail.id}>Username or Password</label>
+          <label htmlFor={fields.usernameEmail.id}>Username or Email</label>
           <Input {...getInputProps(fields.usernameEmail, { type: "text" })} />
           <ErrorList
             id={fields.usernameEmail.id}

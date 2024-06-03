@@ -22,7 +22,7 @@ import { validateCSRF } from "~/lib/csrf.server"
 import { login, requireAnonymous, sessionKey } from "~/lib/auth.server"
 
 const loginFormSchema = z.object({
-  username: z.string().min(5),
+  username: z.string(),
   password: z.string(),
   redirectTo: z.string().optional(),
   rememberMe: z.boolean().optional(),
