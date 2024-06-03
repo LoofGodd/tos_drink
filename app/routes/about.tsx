@@ -40,15 +40,6 @@ export default function about() {
             </div>
             <div className="grid gap-2 text-sm lg:grid-cols-2 lg:gap-4">
               <div className="space-y-2">
-                <h2 className="text-lg font-semibold">Menu</h2>
-                <ul className="list-disc list-inside space-y-1">
-                  <li>Espresso</li>
-                  <li>Cappuccino</li>
-                  <li>Latte</li>
-                  <li>Croissants</li>
-                </ul>
-              </div>
-              <div className="space-y-2">
                 <h2 className="text-lg font-semibold">Location</h2>
                 <ul className="list-disc list-inside space-y-1">
                   <li>
@@ -81,7 +72,6 @@ export default function about() {
           </div>
         </div>
       </div>
-      <Email />
     </div>
   )
 }

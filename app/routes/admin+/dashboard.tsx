@@ -22,7 +22,21 @@ import { Banknote, Boxes, SendToBack, UsersIcon, Wallet } from "lucide-react"
 export default function AdminDashRoute() {
   const { users, products, saleProducts, userOrders } =
     useRouteLoaderData<typeof parentLoader>("routes/admin")!
-
+  const saleProductsClean: typeof saleProducts = []
+  let skip = false
+  for (let j = 0; j < saleProducts.length; j++) {
+    for (let i = 0; i < saleProductsClean.length; i++) {
+      if (saleProducts[j].productId === saleProductsClean[i].productId) {
+        saleProductsClean[i].quantity += saleProducts[j].quantity
+        skip = true
+      }
+    }
+    if (!skip) {
+      saleProductsClean.push(saleProducts[j])
+    }
+    skip = false
+  }
+  saleProductsClean.sort((a, b) => a.quantity + b.quantity)
   const getProduct = (id: string) =>
     products.find((product) => product.id === id)
   return (
@@ -158,35 +172,45 @@ export default function AdminDashRoute() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {saleProducts.length ? (
+                {saleProductsClean.length ? (
                   Array.from(
                     {
-                      length: saleProducts.length > 5 ? 5 : saleProducts.length,
+                      length:
+                        saleProductsClean.length > 5
+                          ? 5
+                          : saleProductsClean.length,
                     },
-                    (_, index) => (
-                      <TableRow key={saleProducts[index].id}>
-                        <TableCell className="font-medium">
-                          <img
-                            className="object-covert"
-                            width={70}
-                            height={70}
-                            style={{
-                              aspectRatio: 1 / 1,
-                              objectFit: "cover",
-                            }}
-                            src={getProductImage(
-                              getProduct(saleProducts[index].productId)?.image
-                                ?.id
-                            )}
-                            alt="las"
-                          />
-                        </TableCell>
-                        <TableCell>
-                          {getProduct(saleProducts[index].productId)?.name}
-                        </TableCell>
-                        <TableCell>{saleProducts[index].quantity}</TableCell>
-                      </TableRow>
-                    )
+                    (_, index) => {
+                      return (
+                        <TableRow key={saleProductsClean[index].id}>
+                          <TableCell className="font-medium">
+                            <img
+                              className="object-covert"
+                              width={70}
+                              height={70}
+                              style={{
+                                aspectRatio: 1 / 1,
+                                objectFit: "cover",
+                              }}
+                              src={getProductImage(
+                                getProduct(saleProductsClean[index].productId)
+                                  ?.image?.id
+                              )}
+                              alt="las"
+                            />
+                          </TableCell>
+                          <TableCell>
+                            {
+                              getProduct(saleProductsClean[index].productId)
+                                ?.name
+                            }
+                          </TableCell>
+                          <TableCell>
+                            {saleProductsClean[index].quantity}
+                          </TableCell>
+                        </TableRow>
+                      )
+                    }
                   )
                 ) : (
                   <div>No order</div>

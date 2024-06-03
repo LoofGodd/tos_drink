@@ -7,6 +7,8 @@ const schema = z.object({
   MOCK_API: z.string(),
   TURSO_DATABASE_URL: z.string(),
   TURSO_AUTH_TOKEN: z.string(),
+  EMAIL_USER: z.string(),
+  EMAIL_APP_PASS: z.string(),
 })
 
 declare global {

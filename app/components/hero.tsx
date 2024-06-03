@@ -13,11 +13,11 @@ export default function Hero() {
           <div className="absolute inset-0 flex flex-col items-center justify-center space-y-4 text-center bg-gray-900/40 text-gray-50 dark:bg-gray-50 dark:text-gray-900">
             <div className="space-y-2">
               <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                The Future of the Web
+                The Best Drink
               </h1>
               <p className="max-w-[600px] text-sm text-gray-300 md:text-xl dark:text-gray-400">
-                The only platform you need to build the fastest, most secure web
-                experiences.
+                The only platform you need to buy the best drinks, most most
+                simple experiences.
               </p>
             </div>
             <Button asChild>

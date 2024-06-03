@@ -19,6 +19,7 @@ import { sendEmail } from "~/lib/email.server"
 import { prisma } from "~/lib/db.server"
 import { codeQueryParam, targetQueryParam, typeQueryParam } from "./verify"
 import { requireAnonymous } from "~/lib/auth.server"
+import VerifyHTML from "~/components/verifyTemplate"
 
 export const verificationEmailKey = "verificationEmail"
 const EmailSchema = z.object({
@@ -50,10 +51,15 @@ export async function action({ request }: ActionFunctionArgs) {
   verifyUrl.searchParams.set(codeQueryParam, otp)
   const sentEmail = await sendEmail({
     to: email,
-    subject: "Hellow World",
-    text: `Verify code ${otp} : ${verifyUrl}`,
+    subject: "Verify to register an account",
+    react: (
+      <VerifyHTML
+        validationCode={otp}
+        url={verifyUrl.toString()}
+        head="Verify Your before create"
+      />
+    ),
   })
-  console.log(sentEmail)
   const verificationData = {
     type,
     target: email,

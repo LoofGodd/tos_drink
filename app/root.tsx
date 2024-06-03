@@ -2,7 +2,6 @@ import { LinksFunction, LoaderFunctionArgs, json } from "@remix-run/node"
 import * as React from "react"
 import {
   Links,
-  LiveReload,
   Meta,
   Outlet,
   Scripts,
@@ -40,6 +39,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     select: {
       id: true,
       username: true,
+      role: true,
       image: { select: { id: true, altText: true } },
     },
   })

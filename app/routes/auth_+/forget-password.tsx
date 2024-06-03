@@ -16,6 +16,7 @@ import { getZodConstraint, parseWithZod } from "@conform-to/zod"
 import { ErrorList } from "~/components/form"
 import { validateCSRF } from "~/lib/csrf.server"
 import { sendEmail } from "~/lib/email.server"
+import VerifyHTML from "~/components/verifyTemplate"
 
 const forgetPasswordSchema = z.object({
   usernameEmail: z.string(),
@@ -43,10 +44,16 @@ export async function action({ request }: ActionFunctionArgs) {
       target: user.email,
       request,
     })
-  const response = await sendEmail({
+  await sendEmail({
     to: user.email,
     subject: "reset password",
-    text: `Your code ${otp} ${verifyUrl}`,
+    react: (
+      <VerifyHTML
+        validationCode={otp}
+        url={verifyUrl.toString()}
+        head="Verify code to reset password"
+      />
+    ),
   })
   const verificationData = {
     type,

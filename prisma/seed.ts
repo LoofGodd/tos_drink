@@ -80,7 +80,7 @@ async function seed() {
     data: {
       name: "Rot",
       username: "loofgodd",
-      email: "loofgodd@rot.com",
+      email: "nja7591@gmail.com ",
       role: "admin",
       image: { create: productImages[0] },
       password: { create: createPassword("loofgoddcoding") },

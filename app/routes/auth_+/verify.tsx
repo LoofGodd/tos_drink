@@ -135,7 +135,6 @@ async function validateRequest(
     }),
     async: true,
   })
-  console.log(submission)
   if (submission.status !== "success")
     return json({ submission: { ...submission.reply() }, status: "idle" })
   const { value: submissionValue } = submission

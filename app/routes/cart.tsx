@@ -5,7 +5,7 @@
  */
 import { Button } from "~/components/ui/button"
 import ItemBought, { ProductBought } from "~/components/itemBought"
-import { Form, Link, useLoaderData } from "@remix-run/react"
+import { Form, Link, useLoaderData, useNavigation } from "@remix-run/react"
 import {
   ActionFunctionArgs,
   LoaderFunctionArgs,
@@ -261,6 +261,8 @@ function Calculation({
   totalItems: ProductBought[]
 }) {
   const user = useUser()
+  const navigation = useNavigation()
+
   const productList = totalItems.map((totalItem) => totalItem.id).join(",")
   return (
     <div className="grid gap-4 md:gap-6 px-4 md:px-6">
@@ -276,10 +278,32 @@ function Calculation({
           </h3>
           <Form method="post">
             <AuthenticityTokenInput />
-            <input name="userId" value={user.id} hidden />
-            <input name="productList" value={productList} hidden />
-            <input name="totalPrice" value={totalPrice} hidden />
-            <Button size="lg" type="submit">
+            <input
+              name="userId"
+              value={user.id}
+              defaultValue={user.id}
+              hidden
+            />
+            <input
+              name="productList"
+              value={productList}
+              defaultValue={productList}
+              hidden
+            />
+            <input
+              name="totalPrice"
+              value={totalPrice}
+              defaultValue={totalPrice}
+              hidden
+            />
+            <Button
+              size="lg"
+              type="submit"
+              disabled={
+                navigation.state === "loading" ||
+                navigation.state === "submitting"
+              }
+            >
               Checkout
             </Button>
           </Form>

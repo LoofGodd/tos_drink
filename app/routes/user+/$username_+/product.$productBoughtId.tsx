@@ -31,7 +31,7 @@ export default function ProductBoughtIdRoute() {
       <div className="flex items-center justify-center gap-x-4 text-center my-12">
         <h1 className="text-2xl font-semibold uppercase underline">Note:</h1>
         <p className="text-lg font-medium">
-          If you have already paid, and see this, because we have not confirmed
+          If you have already paid, and see this, because we have not Confirmed
           yet.
         </p>
       </div>

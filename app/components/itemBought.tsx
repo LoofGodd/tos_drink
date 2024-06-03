@@ -19,7 +19,7 @@ import {
 import { Button } from "./ui/button"
 import { Product } from "~/routes/menu+/$productId"
 import { dollar, getProductImage, shortString } from "~/lib/utils"
-import { useFetcher, useSearchParams } from "@remix-run/react"
+import { Form, useSearchParams, useSubmit } from "@remix-run/react"
 import { AuthenticityTokenInput } from "remix-utils/csrf/react"
 import { useState } from "react"
 export interface ProductBought {
@@ -74,10 +74,10 @@ export default function ItemBought({ item }: ItemBoughtProps) {
       { preventScrollReset: true }
     )
   }
-  const fetcher = useFetcher()
+  const submit = useSubmit()
   const dialogOpen = searchParams.get(deleteCartAction) === item.id
   return (
-    <Card className="md:grid flex flex-col relative grid-cols-5 grid-rows-1 items-center justify-between hover:shadow-md hover:shadow-red-100 transition-all duration-200">
+    <Card className="md:grid flex flex-col relative grid-cols-5 grid-rows-1 items-center justify-between hover:shadow-md hover:shadow-red-100 transition-all duration-200 z-50">
       <CardHeader className="col-start-1 col-span-1 h-fit  mb-5 md:mb-0">
         <img
           alt="Product "
@@ -114,10 +114,10 @@ export default function ItemBought({ item }: ItemBoughtProps) {
           <label className="text-sm shrink-0" htmlFor="quantity-3">
             Quantity
           </label>
-          <fetcher.Form
+          <Form
             method="post"
             onChange={(e) => {
-              fetcher.submit(e.currentTarget, {
+              submit(e.currentTarget, {
                 method: "post",
                 preventScrollReset: true,
               })
@@ -135,7 +135,7 @@ export default function ItemBought({ item }: ItemBoughtProps) {
                 setQuantity(e.target.value !== "" ? e.target.value : "1")
               }
             />
-          </fetcher.Form>
+          </Form>
         </div>
         <p className="text-2xl font-semibold">{dollar(item.product.price)}</p>
       </CardFooter>
@@ -163,7 +163,7 @@ export default function ItemBought({ item }: ItemBoughtProps) {
                   The product {item.product.name} will be removed from the cart.
                 </p>
                 <div className="flex gap-x-3">
-                  <fetcher.Form method="post">
+                  <Form method="post">
                     <AuthenticityTokenInput />
                     <input
                       name={cartDeleteIdAction}
@@ -174,7 +174,7 @@ export default function ItemBought({ item }: ItemBoughtProps) {
                     <Button variant="destructive" type="submit">
                       yes
                     </Button>
-                  </fetcher.Form>
+                  </Form>
 
                   <DialogTrigger
                     onClick={() => handleDeleteQueryParams(deleteCartAction)}

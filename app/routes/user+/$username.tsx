@@ -1,6 +1,6 @@
 import { ActionFunctionArgs, MetaFunction, json } from "@remix-run/node"
 import { Form, useLoaderData, useFetcher } from "@remix-run/react"
-import { LogOutIcon, ShieldAlert, Tablet } from "lucide-react"
+import { LogOutIcon, ShieldAlert, Tablet, UserRoundCog } from "lucide-react"
 import { LoaderFunctionArgs } from "react-router"
 import { Link } from "react-router-dom"
 import { GeneralError } from "~/components/error-boundary"
@@ -19,6 +19,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       username: true,
       name: true,
       createdAt: true,
+      role: true,
       carts: {
         select: {
           product: { select: { price: true } },
@@ -76,6 +77,14 @@ export default function ProfileRoute() {
             </figcaption>
           </figure>
           <p>{join}</p>
+          {user?.role === "admin" ? (
+            <Link
+              to="/admin"
+              className="flex gap-x-4 hover:bg-secondary-foreground/80 transition-colors duration-300 bg-secondary-foreground/90 text-secondary px-4 py-2 rounded-lg"
+            >
+              Admin <UserRoundCog />
+            </Link>
+          ) : null}
         </div>
         <div className="col-start-2 col-span-1 grid place-items-center">
           <ul className="flex flex-col items-center">
