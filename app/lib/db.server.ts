@@ -2,13 +2,13 @@ import { remember } from "@epic-web/remember"
 import { PrismaClient } from "@prisma/client"
 import { createClient } from "@libsql/client"
 import { PrismaLibSQL } from "@prisma/adapter-libsql"
+import dotenv from "dotenv"
+
+dotenv.config()
 
 console.log({ turso: process.env.VITE_TURSO_DATABASE_URL })
 const libSql = createClient({
-  url:
-    process.env.VITE_TURSO_DATABASE_URL ??
-    process.env.DATABASE_PATH ??
-    "file:./data.db",
+  url: process.env.VITE_TURSO_DATABASE_URL,
   authToken: process.env.VITE_TURSO_AUTH_TOKEN,
 })
 const adapter = new PrismaLibSQL(libSql)

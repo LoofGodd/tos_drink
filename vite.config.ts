@@ -7,6 +7,7 @@ import tsconfigPaths from "vite-tsconfig-paths"
 installGlobals()
 
 const variables = [
+  "NODE_ENV",
   "VITE_SESSION_SECRET",
   "VITE_TURSO_DATABASE_URL",
   "VITE_TURSO_AUTH_TOKEN",
