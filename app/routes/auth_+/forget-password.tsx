@@ -93,7 +93,6 @@ export default function ForgetPasswordRoute() {
       return parseWithZod(formData, { schema: forgetPasswordSchema })
     },
   })
-  console.log(form.allErrors)
   return (
     <div className="">
       <div className="text-center mb-16 flex flex-col gap-y-8">

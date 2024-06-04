@@ -102,11 +102,19 @@ export default function NewPasswordRoute() {
         <div>
           <label htmlFor={fields.newPassword.id}>New Password</label>{" "}
           <Input {...getInputProps(fields.newPassword, { type: "text" })} />
+          <ErrorList
+            id={fields.newPassword.errorId}
+            errors={fields.newPassword.errors}
+          />
         </div>
 
         <div>
           <label htmlFor={fields.confirmPassword.id}>New Password</label>{" "}
           <Input {...getInputProps(fields.confirmPassword, { type: "text" })} />
+          <ErrorList
+            id={fields.confirmPassword.errorId}
+            errors={fields.newPassword.errors}
+          />
         </div>
         <Button type="submit" className="w-full">
           Submit{" "}
