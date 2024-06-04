@@ -22,7 +22,7 @@ export async function sendEmail({
   | { html: string; text: string; react?: never }
   | { react: ReactElement; html?: never; text?: never }
 )) {
-  const from = { name: "Cafe Pu Sok", address: "narot752@gmail.com" }
+  const from = { name: "Cafe Pu Sok", address: process.env.VITE_EMAIL_USER }
 
   const email = {
     from,

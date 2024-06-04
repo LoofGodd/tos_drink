@@ -1,6 +1,7 @@
+import { PrismaClient } from "@prisma/client"
 import { createPassword, createProductWithName, img } from "~/lib/db-utils"
-import { prisma } from "~/lib/db.server"
 
+const prisma = new PrismaClient()
 async function seed() {
   console.log("🌱 seeding...")
   console.time("🌱 database have been seed")
@@ -80,7 +81,7 @@ async function seed() {
     data: {
       name: "Rot",
       username: "loofgodd",
-      email: "nja7591@gmail.com ",
+      email: "rot@hollyyy.com",
       role: "admin",
       image: { create: productImages[0] },
       password: { create: createPassword("loofgoddcoding") },

@@ -7,6 +7,14 @@
 Run the Vite dev server:
 
 ```shellscript
+npm i
+```
+
+```shellscript
+npx prisma db seed
+```
+
+```shellscript
 npm run dev
 ```
 
