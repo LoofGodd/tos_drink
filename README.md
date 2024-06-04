@@ -16,7 +16,7 @@ npmx prisma genterate
 ```shellscript
 npx prisma db seed
 ```
-#setup env variable
+# setup env variable
 
 ```shellscript
 npm run dev
