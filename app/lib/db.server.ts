@@ -6,10 +6,9 @@ import dotenv from "dotenv"
 
 dotenv.config()
 
-console.log({ turso: process.env.VITE_TURSO_DATABASE_URL })
 const libSql = createClient({
-  url: process.env.VITE_TURSO_DATABASE_URL,
-  authToken: process.env.VITE_TURSO_AUTH_TOKEN,
+  url: `${process.env.VITE_TURSO_DATABASE_URL}`,
+  authToken: `${process.env.VITE_TURSO_AUTH_TOKEN}`,
 })
 const adapter = new PrismaLibSQL(libSql)
 const prisma = remember("prisma", () => {
