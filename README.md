@@ -9,10 +9,14 @@ Run the Vite dev server:
 ```shellscript
 npm i
 ```
+```shellscript
+npmx prisma genterate
+```
 
 ```shellscript
 npx prisma db seed
 ```
+#setup env variable
 
 ```shellscript
 npm run dev
